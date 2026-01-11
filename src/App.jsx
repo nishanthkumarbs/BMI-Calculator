@@ -1,9 +1,10 @@
 import React from 'react'
+import Navbar from './Components/Navbar/Navbar'
 
-const App =()=>{
-    return(
+const App = () => {
+    return (
         <div>
-            <h1>BMI Calculator</h1>
+            <Navbar />
         </div>
     )
 }
