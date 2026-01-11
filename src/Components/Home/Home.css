@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    gap: 30px;
 }
 
 /* Container1 CSS */
@@ -14,10 +15,11 @@
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(to right, #ffffff, #bfeaf1);
-    border-radius: 10px;
+    border-radius: 20px;
     margin-top: 10px;
 }
-.home .container1:hover{
+
+.home .container1:hover {
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -31,7 +33,8 @@
     margin: 5px 50px;
 }
 
-.home-container h1,p {
+.home-container h1,
+p {
     font-family: sans-serif;
 }
 
@@ -52,13 +55,13 @@
     margin-right: 150px;
 }
 
-
 .container1 .home-button h2 {
     font-family: sans-serif;
     font-weight: bold;
     text-align: center;
 }
-.container1 .home-button a{
+
+.container1 .home-button a {
     text-decoration: none;
     color: black;
     font-family: sans-serif;
@@ -69,7 +72,113 @@
     font-weight: bold;
     border-radius: 50px;
 }
-.container1 .home-button a:hover{
+
+.container1 .home-button a:hover {
     background-color: white;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
+}
+
+.home .container2 {
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    gap: 10px;
+    font-family: sans-serif;
+}
+
+.container2 .container2-back {
+    width: 380px;
+    height: 385px;
+    background-color: #bfeaf1;
+    border-radius: 30px;
+
+}
+
+.container2 .container2-img {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.container2 .container2-img img {
+    height: 450px;
+    margin-left: -480px;
+    margin-top: -65px;
+}
+
+.container2 .container2-info {
+    width: 600px;
+    height: 350px;
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 0px 50px;
+}
+
+.container2 .container2-info h1 {
+    width: 350px;
+}
+
+.container2 .container2-info p {
+    width: 450px;
+    line-height: 25px;
+    text-align: justify;
+}
+
+.home .container3 {
+    width: 80vw;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 40px;
+    margin-bottom: 40px;
+    background-color: #c8ebf0;
+    border-radius: 30px;
+    font-family: sans-serif;
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+
+}
+
+.container3 .container3-child {
+    width: 340px;
+    height: 200px;
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.container3 .container3-child .icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.container3 .container3-child p {
+    line-height: 20px;
+}
+
+/* Colors like in your image */
+.pink {
+    background: #fde2e7;
+    color: #fa0845;
+}
+
+.orange {
+    background: #fff1d6;
+    color: #f9a825;
+}
+
+.teal {
+    background: #dff5f3;
+    color: #1aa6a0;
 }

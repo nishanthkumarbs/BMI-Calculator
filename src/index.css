@@ -5,7 +5,7 @@
 }
 
 body{
-  height: 100vh;
+  /* height: 100vh; */
   background: linear-gradient(to bottom right, #ffffff,  #bfeaf1);
   /* color: white; */
   font-family: 'outfit';
