@@ -1,0 +1,75 @@
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+/* Container1 CSS */
+
+.home .container1 {
+    width: 95vw;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to right, #ffffff, #bfeaf1);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.home .container1:hover{
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.container1 .home-container {
+    height: 450px;
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 50px;
+    margin: 5px 50px;
+}
+
+.home-container h1,p {
+    font-family: sans-serif;
+}
+
+.home-container p {
+    width: 500px;
+    line-height: 25px;
+    text-align: justify;
+}
+
+.container1 .home-button {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 50px;
+    gap: 30px;
+    margin-right: 150px;
+}
+
+
+.container1 .home-button h2 {
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+.container1 .home-button a{
+    text-decoration: none;
+    color: black;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 15px 30px;
+    background-color: #97e5f3;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+}
+.container1 .home-button a:hover{
+    background-color: white;
+    transform: scale(1.1,1.1);
+}
