@@ -1,6 +1,7 @@
 import React from 'react'
 import './Navbar.css'
 import BMI from '../../assets/BMI.png'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     return (
@@ -11,9 +12,9 @@ const Navbar = () => {
                 </div>
                 <div className='navbar-menu'>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">BMI Calculator</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><Link id='navLink' to={'/'}>Home</Link></li>
+                        <li><Link id='navLink' to={'/calculator'}>Calculator</Link></li>
+                        <li><Link id='navLink' to={'/about'}>About</Link></li>
                     </ul>
                 </div>
             </div>

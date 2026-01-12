@@ -33,7 +33,7 @@
     
 }
 
-.navbar .navbar-menu ul li a {
+.navbar .navbar-menu ul li #navLink {
     width: 150px;
     text-decoration: none;
     font-size: 20px;
@@ -43,6 +43,6 @@
     padding: 8px 8px;
 }
 
-.navbar .navbar-menu ul li a:hover{
+.navbar .navbar-menu ul li #navLink:hover{
     background-color: #97e5f3;
 }

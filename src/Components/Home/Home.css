@@ -61,7 +61,7 @@ p {
     text-align: center;
 }
 
-.container1 .home-button a {
+.container1 .home-button #cal {
     text-decoration: none;
     color: black;
     font-family: sans-serif;
@@ -73,7 +73,7 @@ p {
     border-radius: 50px;
 }
 
-.container1 .home-button a:hover {
+.container1 .home-button #cal:hover {
     background-color: white;
     transform: scale(1.1, 1.1);
 }

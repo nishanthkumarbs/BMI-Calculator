@@ -3,7 +3,7 @@ import './Home.css'
 import health from '../../assets/Healthy.png'
 import { FaAppleAlt, FaDumbbell } from "react-icons/fa";
 import { MdNightlightRound } from "react-icons/md";
-
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -17,7 +17,7 @@ const Home = () => {
                     </div>
                     <div className='home-button'>
                         <h2>Here Calculate Your Body Mass Index</h2>
-                        <a href="#">Calculator</a>
+                        <Link id='cal' to={'/calculator'}>Calculator</Link>
                     </div>
                 </aside>
 
