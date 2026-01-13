@@ -27,9 +27,11 @@
 
 .navbar .navbar-menu ul {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    align-items: end;
+    justify-content: end;
     list-style-type: none;
+    margin: 50px;
+    gap: 20px;
     
 }
 
@@ -44,5 +46,5 @@
 }
 
 .navbar .navbar-menu ul li #navLink:hover{
-    background-color: #97e5f3;
+    background-color: #67e5fb;
 }

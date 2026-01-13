@@ -4,6 +4,7 @@
     justify-content: space-evenly;
     flex-direction: column;
     gap: 30px;
+    font-family: sans-serif;
 }
 
 /* Container1 CSS */
@@ -33,9 +34,9 @@
     margin: 5px 50px;
 }
 
-.home-container h1,
-p {
-    font-family: sans-serif;
+.home-container h1 {
+    
+    color: #67e5fb;
 }
 
 .home-container p {
@@ -67,7 +68,7 @@ p {
     font-family: sans-serif;
     text-align: center;
     padding: 15px 30px;
-    background-color: #97e5f3;
+    background-color: #67e5fb;
     font-size: 18px;
     font-weight: bold;
     border-radius: 50px;
