@@ -1,4 +1,5 @@
 import React from "react";
+import './Partical.css';
 import { useEffect, useMemo, useState } from "react";
 import { initParticlesEngine, Particles } from "@tsparticles/react";
 
@@ -33,7 +34,7 @@ function Partical() {
         () => ({
             background: {
                 color: {
-                    value: "#",
+                    value: "transparent",
                 },
             },
             fpsLimit: 120,
