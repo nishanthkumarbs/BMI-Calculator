@@ -71,39 +71,44 @@
 }
 
 .result {
-  margin-top: 18px;
-  padding: 12px;
-  text-align: center;
-  border-radius: 8px;
-  background: #111827;
-  border: 2px solid #67e5fb;
+    margin-top: 18px;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    background: #111827;
+    border: 2px solid #67e5fb;
 }
 
 .result h2 {
-  margin: 0;
-  font-size: 18px;
-  color: #67e5fb;
+    margin: 0;
+    font-size: 18px;
+    color: #67e5fb;
 }
 
 /* ONLY category word colors */
 .underweight {
-  color: #3b82f6; /* blue */
+    color: #3b82f6;
+    /* blue */
 }
 
 .normal {
-  color: #22c55e; /* green */
+    color: #22c55e;
+    /* green */
 }
 
 .overweight {
-  color: #facc15; /* yellow */
+    color: #facc15;
+    /* yellow */
 }
 
 .obesity {
-  color: #ef4444; /* red */
+    color: #ef4444;
+    /* red */
 }
 
 .category {
-  margin-left: 16px; /* acts like 1 tab */
+    margin-left: 16px;
+    /* acts like 1 tab */
 }
 
 
@@ -119,7 +124,7 @@
     padding: 8px 10px;
 }
 
-.formContainer2 h1{
+.formContainer2 h1 {
     color: #67e5fb;
 }
 
@@ -127,4 +132,113 @@
     width: 600px;
     line-height: 25px;
     text-align: justify;
+}
+
+
+/* Table Container */
+
+.container-table {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 50px;
+}
+
+.tableContainer {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tableContainer h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 15px;
+    color: #67e5fb;
+    text-align: center;
+}
+
+.bmi-table {
+    width: 300px;
+    height: 300px;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.bmi-table thead {
+    background-color: #f8fafc;
+}
+
+.bmi-table th,
+.bmi-table td {
+    padding: 14px;
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.bmi-table th {
+    font-weight: 600;
+    color: #000000;
+}
+
+.bmi-table td {
+    color: #3b3d40;
+}
+
+.bmi-table tdcolor{
+    color: #3b3d40;
+}
+
+.bmi-table tbody tr:last-child th,
+.bmi-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.bmi-table tbody tr:hover {
+    background-color: #f1f5f9;
+    transition: background 0.3s ease;
+}
+
+
+
+.containerButton {
+    width: 400px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+
+}
+
+.containerButton h2 {
+    font-size: 20px;
+    
+}
+
+.containerButton a {
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #67e5fb;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+}
+
+.containerButton a:hover {
+    background-color: white;
+    border: 2px solid #67e5fb;
+    transform: scale(1.1, 1.1);
 }

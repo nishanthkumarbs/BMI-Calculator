@@ -4,6 +4,7 @@ import Home from './Components/Home/Home'
 import Calculator from './Components/Calculator/Calculator'
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
 import About from './Components/About/About'
+import Partical from './Components/Partical/Partical'
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
 
         <div>
             <BrowserRouter>
+                <Partical />
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Home />}></Route>

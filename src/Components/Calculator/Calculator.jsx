@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './Calculator.css'
+import chart from '../../assets/BMI_Chart.pdf'
 
 const Calculator = () => {
 
@@ -77,7 +78,38 @@ const Calculator = () => {
 
                 <aside className="container-table">
                     <div className="tableContainer">
-                        <h1>TABLE</h1>
+                        <h1>BMI Categories</h1>
+                        <table className="bmi-table">
+                            <thead>
+                                <tr>
+                                    <th>BMI Category</th>
+                                    <th>BMI Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Underweight</th>
+                                    <td>Below 18.5</td>
+                                </tr>
+                                <tr>
+                                    <th>Normal</th>
+                                    <td>18.5 – 24.9</td>
+                                </tr>
+                                <tr>
+                                    <th>Overweight</th>
+                                    <td>25.0 – 29.9</td>
+                                </tr>
+                                <tr>
+                                    <th>Obesity</th>
+                                    <td>30.0 or above</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="containerButton">
+                        <h2>To Know More <br /> Click the Below Button</h2>
+                        <a href={chart}>Click</a>
                     </div>
                 </aside>
             </section>
