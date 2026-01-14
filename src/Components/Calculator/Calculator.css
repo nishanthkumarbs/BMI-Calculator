@@ -242,3 +242,147 @@
     border: 2px solid #67e5fb;
     transform: scale(1.1, 1.1);
 }
+/* =========================
+   Tablet (max-width: 1024px)
+========================= */
+@media (max-width: 1024px) {
+
+    .container-main .container-form {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+    }
+
+    .fromContainer1 {
+        width: 90%;
+        margin: 30px 0;
+    }
+
+    .container-main .formContainer2 {
+        width: 90%;
+        margin: 20px 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .formContainer2 p {
+        width: 100%;
+    }
+
+    .container-table {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .containerButton {
+        width: 100%;
+    }
+}
+
+
+/* =========================
+   Mobile (max-width: 768px)
+========================= */
+@media (max-width: 768px) {
+
+    .fromContainer1 {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .fromContainer1 label {
+        font-size: 15px;
+    }
+
+    .fromContainer1 button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .result h2 {
+        font-size: 16px;
+    }
+
+    .container-main .formContainer2 {
+        height: auto;
+        padding: 10px;
+    }
+
+    .formContainer2 h1 {
+        font-size: 22px;
+    }
+
+    .container-table {
+        padding: 10px;
+    }
+
+    .tableContainer {
+        width: 95%;
+    }
+
+    .bmi-table {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .bmi-table th,
+    .bmi-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .containerButton h2 {
+        font-size: 18px;
+    }
+
+    .containerButton a {
+        width: 140px;
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+
+/* =========================
+   Small Mobile (max-width: 480px)
+========================= */
+@media (max-width: 480px) {
+
+    .fromContainer1 {
+        padding: 15px;
+    }
+
+    .fromContainer1 input {
+        font-size: 13px;
+    }
+
+    .result {
+        padding: 10px;
+    }
+
+    .result h2 {
+        font-size: 14px;
+    }
+
+    .formContainer2 h1 {
+        font-size: 20px;
+    }
+
+    .formContainer2 p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .bmi-table th,
+    .bmi-table td {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .containerButton a {
+        width: 130px;
+        height: 42px;
+        font-size: 15px;
+    }
+}
+

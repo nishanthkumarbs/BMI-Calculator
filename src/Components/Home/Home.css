@@ -183,3 +183,146 @@
     background: #dff5f3;
     color: #1aa6a0;
 }
+
+
+/* =========================
+   Tablet (max-width: 1024px)
+========================= */
+@media (max-width: 1024px) {
+
+    .home .container1 {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .container1 .home-container {
+        margin: 0;
+        padding: 30px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .home-container p {
+        width: 100%;
+    }
+
+    .container1 .home-button {
+        margin-right: 0;
+        width: 100%;
+        padding: 30px;
+    }
+
+    .home .container2 {
+        flex-direction: column;
+        width: 90vw;
+    }
+
+    .container2 .container2-back {
+        display: none;
+    }
+
+    .container2 .container2-img img {
+        margin: 0;
+        height: 350px;
+    }
+
+    .container2 .container2-info {
+        width: 100%;
+        padding: 20px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .container2 .container2-info p {
+        width: 100%;
+    }
+
+    .home .container3 {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .container3 .container3-child {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+
+/* =========================
+   Mobile (max-width: 768px)
+========================= */
+@media (max-width: 768px) {
+
+    .home {
+        gap: 20px;
+    }
+
+    .home .container1 {
+        width: 95vw;
+    }
+
+    .container1 .home-container {
+        height: auto;
+        padding: 20px;
+    }
+
+    .container1 .home-button {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .container1 .home-button #cal {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+
+    .container2 .container2-img img {
+        height: 280px;
+    }
+
+    .container2 .container2-info h1 {
+        width: 100%;
+        font-size: 22px;
+    }
+
+    .container3 {
+        width: 90vw;
+    }
+}
+
+
+/* =========================
+   Small Mobile (max-width: 480px)
+========================= */
+@media (max-width: 480px) {
+
+    .home-container h1 {
+        font-size: 22px;
+    }
+
+    .home-container p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .container1 .home-button h2 {
+        font-size: 18px;
+    }
+
+    .container2 .container2-img img {
+        height: 220px;
+    }
+
+    .container3 .container3-child {
+        height: auto;
+        gap: 10px;
+    }
+
+    .container3 .container3-child p {
+        font-size: 14px;
+    }
+}

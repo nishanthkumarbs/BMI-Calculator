@@ -146,6 +146,7 @@
 
 .container2 .intro p{
     line-height: 25px;
+    text-align: justify;
 }
 
 .container2 .adults{
@@ -233,4 +234,152 @@
 
 .bmi-table tbody tr:nth-child(8) td {
     color: #ef4444; /* Obese Class III - red */
+}
+
+
+/* =========================
+   Tablet (max-width: 1024px)
+========================= */
+@media (max-width: 1024px) {
+
+    .about-container .container1 {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .container1 .about-header {
+        width: 90%;
+        height: auto;
+        margin: 20px 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .container1 .about-cards {
+        width: 90%;
+        height: auto;
+        margin: 20px 0;
+        gap: 20px;
+    }
+
+    .about-container .container2 .intro {
+        height: auto;
+        padding: 10px 20px;
+        margin: 10px 20px;
+        align-items: center;
+        text-align: justify;
+    }
+
+    .container2 .adults {
+        flex-direction: column;
+        height: auto;
+        gap: 30px;
+    }
+
+    .container2 .adults .text {
+        width: 90%;
+        height: auto;
+        align-items: center;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .container2 .adults .table-container {
+        width: 90%;
+        height: auto;
+    }
+}
+
+
+/* =========================
+   Mobile (max-width: 768px)
+========================= */
+@media (max-width: 768px) {
+
+    .about-container {
+        margin-top: 20px;
+    }
+
+    .container1 .about-header h1 {
+        font-size: 26px;
+    }
+
+    .container1 .about-header p {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    .container1 .about-cards {
+        justify-content: center;
+    }
+
+    .container1 .about-cards .about-card {
+        width: 260px;
+        height: auto;
+        gap: 10px;
+    }
+
+    .container2 .intro h2 {
+        font-size: 24px;
+    }
+
+    .container2 .intro p {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    .container2 .adults .table-container {
+        padding: 10px;
+    }
+
+    .container2 .adults .bmi-table {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .container2 .adults .bmi-table th,
+    .container2 .adults .bmi-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+
+/* =========================
+   Small Mobile (max-width: 480px)
+========================= */
+@media (max-width: 480px) {
+
+    .container1 .about-header h1 {
+        font-size: 22px;
+    }
+
+    .container1 .about-header p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .container1 .about-cards .about-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .about-card h3 {
+        font-size: 16px;
+    }
+
+    .about-card p {
+        font-size: 13px;
+    }
+
+    .container2 .intro h2 {
+        font-size: 22px;
+    }
+
+    .container2 .adults .bmi-table th,
+    .container2 .adults .bmi-table td {
+        font-size: 13px;
+        padding: 8px;
+    }
 }

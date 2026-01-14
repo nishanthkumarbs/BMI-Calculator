@@ -60,10 +60,10 @@ function Partical() {
             },
             particles: {
                 color: {
-                    value: "#000000",
+                    value: "#2cdaf9",
                 },
                 links: {
-                    color: "#000000",
+                    color: "#2cdaf9",
                     distance: 150,
                     enable: true,
                     opacity: 0.5,
