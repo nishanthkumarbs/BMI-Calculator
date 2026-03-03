@@ -52,11 +52,11 @@ This application allows users to calculate their BMI based on height and weight 
 
 4. Start the development server
     ```bash
-   npm start
+   npm start dev
 
 5. Open in browser
     ```bash
-   http://localhost:3000
+   http://localhost:5173
    
 ## 📜 License
 
