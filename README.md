@@ -1,6 +1,6 @@
 # 📊 BMI Calculator (React)
 
-A responsive **BMI (Body Mass Index) Calculator** built using **React**.  
+A responsive **BMI (Body Mass Index) Calculator** built using **React js**.  
 This application allows users to calculate their BMI based on height and weight and instantly view their health category.
 
 ---
@@ -60,4 +60,4 @@ This application allows users to calculate their BMI based on height and weight 
    
 ## 📜 License
 
-This project is licensed under the [MIT License](LICENSE) © 2025 Nishanth Kumar B S.
+This project is licensed under the [MIT License](LICENSE) © 2026 Nishanth Kumar B S.
