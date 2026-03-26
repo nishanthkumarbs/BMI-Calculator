@@ -1,5 +1,5 @@
 import React from "react";
-import { FaVenusMars, FaBirthdayCake, FaDumbbell, FaBaby, FaGlobe } from "react-icons/fa";
+import { FaVenusMars, FaBirthdayCake, FaDumbbell, FaBaby, FaGlobe, FaHeartbeat, FaRuler, FaUserTie } from "react-icons/fa";
 import "./About.css";
 
 const About = () => {
@@ -102,7 +102,7 @@ const About = () => {
                         <h3>Muscle</h3>
                         <p>
                             BMI may misclassify muscular individuals as overweight or obese, as
-                            it doesn’t differentiate muscle from fat.
+                            it doesn't differentiate muscle from fat.
                         </p>
                     </div>
 
@@ -121,6 +121,33 @@ const About = () => {
                         <p>
                             Certain health concerns may affect individuals of some Black and
                             Asian origins at lower BMIs than others.
+                        </p>
+                    </div>
+
+                    <div className="about-card">
+                        <span className="icon health"><FaHeartbeat /></span>
+                        <h3>Health Conditions</h3>
+                        <p>
+                            Medical conditions like edema, osteoporosis, or hormonal imbalances can
+                            affect weight without reflecting actual body composition changes.
+                        </p>
+                    </div>
+
+                    <div className="about-card">
+                        <span className="icon height"><FaRuler /></span>
+                        <h3>Height Distribution</h3>
+                        <p>
+                            BMI doesn't account for how weight is distributed. Two people with the same
+                            BMI may have vastly different body shapes and health profiles.
+                        </p>
+                    </div>
+
+                    <div className="about-card">
+                        <span className="icon ethnicity"><FaUserTie /></span>
+                        <h3>Ethnicity Variations</h3>
+                        <p>
+                            Different ethnic groups have varying metabolic rates and body compositions,
+                            making universal BMI ranges potentially inaccurate.
                         </p>
                     </div>
                 </div>
