@@ -121,6 +121,21 @@
     color: var(--color-green);
 }
 
+.about-card .icon.health {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.about-card .icon.height {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.about-card .icon.ethnicity {
+    background: #fce7f3;
+    color: #be185d;
+}
+
 .about-container .container2 {
     width: 95vw;
     display: flex;
