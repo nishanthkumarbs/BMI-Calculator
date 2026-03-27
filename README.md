@@ -3,8 +3,9 @@
 A responsive **BMI (Body Mass Index) Calculator** built using **React js**.  
 This application allows users to calculate their BMI based on height and weight and instantly view their health category.
 
-## 🔗 Live Demo:
-https://bmicalculatorandinfo.netlify.app/
+## 🔗 Live Demo
+
+[View Live Demo Here](https://bmicalculatorandinfo.netlify.app/)
 
 ---
 
@@ -44,27 +45,27 @@ https://bmicalculatorandinfo.netlify.app/
 1. Clone the repository
    ```bash
    git clone https://github.com/nishanthkumarbs/BMI-Calculator.git
+   ```
 
 2. Navigate to the project directory
-    ```bash
+   ```bash
    cd bmi-calculator
+   ```
 
 3. Install dependencies
-    ```bash
+   ```bash
    npm install
+   ```
 
 4. Start the development server
-    ```bash
+   ```bash
    npm run dev
+   ```
 
 5. Open in browser
-    ```bash
+   ```bash
    http://localhost:5173
-
----
-## 🌐 Live Website
-
-https://bmicalculatorandinfo.netlify.app/
+   ```
 
 ---
    
