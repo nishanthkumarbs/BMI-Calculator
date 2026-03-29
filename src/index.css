@@ -4,10 +4,18 @@
   box-sizing: border-box;
 }
 
-body{
-  /* height: 100vh; */
+body.light{
   background: linear-gradient(to bottom right, #ffffff,  #bfeaf1);
-  /* color: white; */
-  font-family: 'outfit';
-  
+  font-family: 'outfit', sans-serif;
+  color: #000;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+  background: #1e1e2f;
+  font-family: 'outfit', sans-serif;
+  color: #f3f4f6;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
 }
