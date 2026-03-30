@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './Calculator.css'
 import chart from '../../assets/BMI_Chart.pdf'
 import html2canvas from 'html2canvas'
+import { motion, AnimatePresence } from 'framer-motion'
 import { LineChart, Line, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 const Calculator = () => {
@@ -170,56 +171,115 @@ const Calculator = () => {
     // Data reversed for chart so it flows chronologically left to right
     const chartData = [...history].reverse();
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.2 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 }
+    };
+
     return (
-        <section className={`container-main ${theme === 'dark' ? 'dark-mode-container' : ''}`}>
+        <motion.section 
+            className={`container-main ${theme === 'dark' ? 'dark-mode-container' : ''}`}
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+        >
             {/* Theme Toggle Button */}
-            <div className="theme-toggle-container">
-                <button className="theme-toggle" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+            <motion.div className="theme-toggle-container" variants={itemVariants}>
+                <motion.button 
+                    className="theme-toggle" 
+                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
                     {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
-                </button>
-            </div>
+                </motion.button>
+            </motion.div>
 
             <aside className='container-form'>
-                <div className="formContainer2">
+                <motion.div className="formContainer2" variants={itemVariants}>
                     <h1>Calculate Your <br /> Body Metrics</h1>
                     <p>Body mass index (BMI) is a measure of body fat. Combined with your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE), you can gain a complete picture of your daily caloric needs, track your history, and set precise weight targets.</p>
                     
-                    {history.length > 0 && (
-                        <div className="history-section">
-                            <h3>Progress Chart</h3>
-                            <div className="chart-container" style={{ width: '100%', height: 180 }}>
-                                <ResponsiveContainer>
-                                    <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                                        <Line type="monotone" dataKey="bmi" stroke="#67e5fb" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" opacity={0.3} />
-                                        <XAxis dataKey="date" tick={{fontSize: 10, fill: theme === 'dark' ? '#cbd5e1' : '#6b7280'}} />
-                                        <YAxis domain={['auto', 'auto']} tick={{fontSize: 12, fill: theme === 'dark' ? '#cbd5e1' : '#6b7280'}} />
-                                        <RechartsTooltip 
-                                            contentStyle={{ backgroundColor: theme === 'dark' ? '#3f3f5a' : '#fff', borderRadius: '8px', border: 'none' }}
-                                            itemStyle={{ color: '#67e5fb', fontWeight: 'bold' }}
-                                        />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
+                    <AnimatePresence>
+                        {history.length > 0 && (
+                            <motion.div 
+                                className="history-section"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <h3>Progress Chart</h3>
+                                <div className="chart-container" style={{ width: '100%', height: 180 }}>
+                                    <ResponsiveContainer>
+                                        <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                                            <Line type="monotone" dataKey="bmi" stroke="#67e5fb" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" opacity={0.3} />
+                                            <XAxis dataKey="date" tick={{fontSize: 10, fill: theme === 'dark' ? '#cbd5e1' : '#6b7280'}} />
+                                            <YAxis domain={['auto', 'auto']} tick={{fontSize: 12, fill: theme === 'dark' ? '#cbd5e1' : '#6b7280'}} />
+                                            <RechartsTooltip 
+                                                contentStyle={{ backgroundColor: theme === 'dark' ? '#3f3f5a' : '#fff', borderRadius: '8px', border: 'none' }}
+                                                itemStyle={{ color: '#67e5fb', fontWeight: 'bold' }}
+                                            />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
 
-                            <ul className="history-list">
-                                {history.slice(0, 3).map((item, idx) => (
-                                    <li key={idx}>
-                                        <span className="history-date">{item.fullDate}</span>
-                                        <span className="history-bmi">{item.bmi}</span>
-                                        <span className={`history-cat ${item.category.toLowerCase()}`}>{item.category}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <button className="clear-btn" onClick={clearHistory}>Clear History</button>
-                        </div>
-                    )}
-                </div>
+                                <ul className="history-list">
+                                    {history.slice(0, 3).map((item, idx) => (
+                                        <motion.li 
+                                            key={idx}
+                                            initial={{ x: -20, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: idx * 0.1 }}
+                                        >
+                                            <span className="history-date">{item.fullDate}</span>
+                                            <span className="history-bmi">{item.bmi}</span>
+                                            <span className={`history-cat ${item.category.toLowerCase()}`}>{item.category}</span>
+                                        </motion.li>
+                                    ))}
+                                </ul>
+                                <motion.button 
+                                    className="clear-btn" 
+                                    onClick={clearHistory}
+                                    whileHover={{ backgroundColor: '#dc2626' }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    Clear History
+                                </motion.button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
 
-                <div className='fromContainer1'>
+                <motion.div className='fromContainer1' variants={itemVariants}>
                     <div className="unit-toggle">
-                        <button type="button" className={unit === 'metric' ? 'active' : ''} onClick={unit !== 'metric' ? toggleUnit : undefined}>Metric</button>
-                        <button type="button" className={unit === 'imperial' ? 'active' : ''} onClick={unit !== 'imperial' ? toggleUnit : undefined}>Imperial</button>
+                        <motion.button 
+                            type="button" 
+                            className={unit === 'metric' ? 'active' : ''} 
+                            onClick={unit !== 'metric' ? toggleUnit : undefined}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Metric
+                        </motion.button>
+                        <motion.button 
+                            type="button" 
+                            className={unit === 'imperial' ? 'active' : ''} 
+                            onClick={unit !== 'imperial' ? toggleUnit : undefined}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Imperial
+                        </motion.button>
                     </div>
 
                     <form onSubmit={handleSubmit}>
@@ -275,72 +335,128 @@ const Calculator = () => {
                             </select>
                         </div>
 
-                        <button className="calc-btn" type="submit">Calculate Metrics</button>
+                        <motion.button 
+                            className="calc-btn" 
+                            type="submit"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            Calculate Metrics
+                        </motion.button>
                     </form>
 
-                    {bmi && (
-                        <div className="result-wrapper">
-                            <div className="result" id="calc-result-area" ref={resultRef}>
-                                <h2>
-                                    Your BMI: {bmi}
-                                    <span className={`category ${category.toLowerCase()}`}>
-                                        ( {category} )
-                                    </span>
-                                </h2>
-                                
-                                <div className="gauge-container">
-                                    <div className="gauge-bar">
-                                        <div className={`gauge-segment underweight-bg ${category === 'Underweight' ? 'active-segment' : ''}`}></div>
-                                        <div className={`gauge-segment normal-bg ${category === 'Normal' ? 'active-segment' : ''}`}></div>
-                                        <div className={`gauge-segment overweight-bg ${category === 'Overweight' ? 'active-segment' : ''}`}></div>
-                                        <div className={`gauge-segment obesity-bg ${category === 'Obesity' ? 'active-segment' : ''}`}></div>
+                    <AnimatePresence>
+                        {bmi && (
+                            <motion.div 
+                                className="result-wrapper"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                            >
+                                <div className="result" id="calc-result-area" ref={resultRef}>
+                                    <h2>
+                                        Your BMI: {bmi}
+                                        <span className={`category ${category.toLowerCase()}`}>
+                                            ( {category} )
+                                        </span>
+                                    </h2>
+                                    
+                                    <div className="gauge-container">
+                                        <div className="gauge-bar">
+                                            <motion.div 
+                                                className={`gauge-segment underweight-bg ${category === 'Underweight' ? 'active-segment' : ''}`}
+                                                initial={{ scaleY: 0.3 }}
+                                                animate={{ scaleY: category === 'Underweight' ? 1.3 : 1 }}
+                                            ></motion.div>
+                                            <motion.div 
+                                                className={`gauge-segment normal-bg ${category === 'Normal' ? 'active-segment' : ''}`}
+                                                initial={{ scaleY: 0.3 }}
+                                                animate={{ scaleY: category === 'Normal' ? 1.3 : 1 }}
+                                            ></motion.div>
+                                            <motion.div 
+                                                className={`gauge-segment overweight-bg ${category === 'Overweight' ? 'active-segment' : ''}`}
+                                                initial={{ scaleY: 0.3 }}
+                                                animate={{ scaleY: category === 'Overweight' ? 1.3 : 1 }}
+                                            ></motion.div>
+                                            <motion.div 
+                                                className={`gauge-segment obesity-bg ${category === 'Obesity' ? 'active-segment' : ''}`}
+                                                initial={{ scaleY: 0.3 }}
+                                                animate={{ scaleY: category === 'Obesity' ? 1.3 : 1 }}
+                                            ></motion.div>
+                                        </div>
                                     </div>
+                                    
+                                    {bmr && (
+                                        <motion.div 
+                                            className="metabolic-stats"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: 0.3 }}
+                                        >
+                                            <div className="stat-box">
+                                                <span className="stat-label">BMR</span>
+                                                <span className="stat-value">{bmr} <small>kcal</small></span>
+                                            </div>
+                                            <div className="stat-box">
+                                                <span className="stat-label">TDEE</span>
+                                                <span className="stat-value">{tdee} <small>kcal</small></span>
+                                            </div>
+                                        </motion.div>
+                                    )}
+
+                                    {goalDays && goalDays.days > 0 && (
+                                        <motion.div 
+                                            className="goal-box"
+                                            initial={{ x: -20, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: 0.4 }}
+                                        >
+                                            <div className="goal-icon">🎯</div>
+                                            <div className="goal-text">
+                                                To <strong>{goalDays.type.toLowerCase()} {goalDays.diff} kg</strong>, it will take roughly <strong>{goalDays.days} days</strong> at a safe pace of 0.45kg/week (500 kcal daily {goalDays.type === 'Lose' ? 'deficit' : 'surplus'}).
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                    {goalDays && goalDays.days === 0 && (
+                                        <motion.div 
+                                            className="goal-box success"
+                                            initial={{ x: -20, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: 0.4 }}
+                                        >
+                                            <div className="goal-icon">✅</div>
+                                            <div className="goal-text">
+                                                You are already at your target weight! Maintain your TDEE of {tdee} kcal to stay here.
+                                            </div>
+                                        </motion.div>
+                                    )}
+
+                                    <motion.div 
+                                        className="smart-tips"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.5 }}
+                                    >
+                                        <strong>💡 Tip:</strong> {getSmartTips(category)}
+                                    </motion.div>
                                 </div>
-                                
-                                {bmr && (
-                                    <div className="metabolic-stats">
-                                        <div className="stat-box">
-                                            <span className="stat-label">BMR</span>
-                                            <span className="stat-value">{bmr} <small>kcal</small></span>
-                                        </div>
-                                        <div className="stat-box">
-                                            <span className="stat-label">TDEE</span>
-                                            <span className="stat-value">{tdee} <small>kcal</small></span>
-                                        </div>
-                                    </div>
-                                )}
 
-                                {goalDays && goalDays.days > 0 && (
-                                    <div className="goal-box">
-                                        <div className="goal-icon">🎯</div>
-                                        <div className="goal-text">
-                                            To <strong>{goalDays.type.toLowerCase()} {goalDays.diff} kg</strong>, it will take roughly <strong>{goalDays.days} days</strong> at a safe pace of 0.45kg/week (500 kcal daily {goalDays.type === 'Lose' ? 'deficit' : 'surplus'}).
-                                        </div>
-                                    </div>
-                                )}
-                                {goalDays && goalDays.days === 0 && (
-                                    <div className="goal-box success">
-                                        <div className="goal-icon">✅</div>
-                                        <div className="goal-text">
-                                            You are already at your target weight! Maintain your TDEE of {tdee} kcal to stay here.
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="smart-tips">
-                                    <strong>💡 Tip:</strong> {getSmartTips(category)}
-                                </div>
-                            </div>
-
-                            <button className="download-btn" onClick={handleDownload}>📷 Download Report</button>
-                        </div>
-                    )}
-
-                </div>
+                                <motion.button 
+                                    className="download-btn" 
+                                    onClick={handleDownload}
+                                    whileHover={{ scale: 1.05, backgroundColor: '#16a34a' }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    📷 Download Report
+                                </motion.button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
             </aside>
 
             <aside className="container-table">
-                <div className="tableContainer">
+                <motion.div className="tableContainer" variants={itemVariants}>
                     <h1>BMI Categories</h1>
                     <table className="bmi-table">
                         <thead>
@@ -368,14 +484,20 @@ const Calculator = () => {
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </motion.div>
 
-                <div className="containerButton">
+                <motion.div className="containerButton" variants={itemVariants}>
                     <h2>To Know More <br /> Click the Below Button</h2>
-                    <a href={chart}>Click</a>
-                </div>
+                    <motion.a 
+                        href={chart}
+                        whileHover={{ scale: 1.1, backgroundColor: 'white' }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        Click
+                    </motion.a>
+                </motion.div>
             </aside>
-        </section>
+        </motion.section>
     )
 }
 

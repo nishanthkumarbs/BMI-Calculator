@@ -379,7 +379,8 @@ body.dark .theme-toggle {
 .gauge-segment {
     flex: 1;
     opacity: 0.3;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease;
+    transform-origin: bottom;
 }
 
 .underweight-bg { background-color: #3b82f6; }
