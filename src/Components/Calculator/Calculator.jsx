@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Calculator.css'
 import chart from '../../assets/BMI_Chart.pdf'
+import html2canvas from 'html2canvas'
+import { LineChart, Line, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 
 const Calculator = () => {
 
@@ -10,21 +12,26 @@ const Calculator = () => {
     const [heightFeet, setHeightFeet] = useState('');
     const [heightInches, setHeightInches] = useState('');
     
-    // New States for Phase 2
+    // States for Phase 2 & 3
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('male');
     const [activity, setActivity] = useState('1.2');
+    const [targetWeight, setTargetWeight] = useState(''); // Goal Weight (kg)
+    
+    // Result States
     const [bmr, setBmr] = useState(null);
     const [tdee, setTdee] = useState(null);
-    const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
-
-    // Results States
     const [bmi, setBmi] = useState(null);
     const [category, setCategory] = useState('');
+    const [goalDays, setGoalDays] = useState(null);
+
+    const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
     const [history, setHistory] = useState(() => {
         const saved = localStorage.getItem('bmiHistory');
         return saved ? JSON.parse(saved) : [];
     });
+
+    const resultRef = useRef(null);
 
     useEffect(() => {
         document.body.className = theme;
@@ -62,15 +69,31 @@ const Calculator = () => {
         setHeightFeet('');
         setHeightInches('');
         setAge('');
+        setTargetWeight('');
         setBmi(null);
         setBmr(null);
         setTdee(null);
+        setGoalDays(null);
         setCategory('');
     }
 
     const toggleUnit = () => {
         setUnit(unit === 'metric' ? 'imperial' : 'metric');
         resetInputs();
+    }
+
+    const handleDownload = () => {
+        if (resultRef.current) {
+            html2canvas(resultRef.current, { 
+                backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
+                scale: 2 // Improve quality
+            }).then((canvas) => {
+                const link = document.createElement('a');
+                link.download = 'My_Fitness_Report.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
     }
 
     const handleSubmit = (e) => {
@@ -101,24 +124,51 @@ const Calculator = () => {
         // BMR & TDEE Calculation (Mifflin-St Jeor Equation)
         const parsedWeight = parseFloat(weight);
         const parsedAge = parseInt(age);
+        let finalTdee = null;
 
         if (parsedAge && parsedWeight && heightInCM) {
             let bmrValue = (10 * parsedWeight) + (6.25 * heightInCM) - (5 * parsedAge);
             bmrValue += (gender === 'male' ? 5 : -161);
             setBmr(Math.round(bmrValue));
-            setTdee(Math.round(bmrValue * parseFloat(activity)));
+            finalTdee = Math.round(bmrValue * parseFloat(activity));
+            setTdee(finalTdee);
+        }
+
+        // Weight Goal Projection (500 kcal deficit/surplus per day = ~0.45kg change per week)
+        if (targetWeight && finalTdee) {
+            const target = parseFloat(targetWeight);
+            const diffKg = parsedWeight - target; 
+            
+            // 7700 kcal per kg of body fat.
+            // With a safe 500 kcal daily gap, 1kg takes ~15.4 days.
+            if (Math.abs(diffKg) > 0.1) {
+                const totalKcal = Math.abs(diffKg) * 7700;
+                const days = Math.ceil(totalKcal / 500); 
+                setGoalDays({
+                    days: days,
+                    type: diffKg > 0 ? 'Lose' : 'Gain',
+                    diff: Math.abs(diffKg).toFixed(1)
+                });
+            } else {
+                setGoalDays({ days: 0, type: 'Maintain', diff: 0 });
+            }
         }
 
         const newRecord = {
-            date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            bmi: finalBmi,
+            date: new Date().toLocaleDateString(), // simplified date for chart
+            fullDate: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            bmi: parseFloat(finalBmi),
             category: cat
         };
         
-        if (history.length > 0 && history[0].bmi === finalBmi) return;
+        // Prevent duplicate spamming
+        if (history.length > 0 && history[0].bmi === parseFloat(finalBmi) && history[0].date === newRecord.date) return;
 
-        setHistory([newRecord, ...history].slice(0, 5));
+        setHistory([newRecord, ...history].slice(0, 10)); // Keep last 10 for better charting
     };
+
+    // Data reversed for chart so it flows chronologically left to right
+    const chartData = [...history].reverse();
 
     return (
         <section className={`container-main ${theme === 'dark' ? 'dark-mode-container' : ''}`}>
@@ -132,15 +182,30 @@ const Calculator = () => {
             <aside className='container-form'>
                 <div className="formContainer2">
                     <h1>Calculate Your <br /> Body Metrics</h1>
-                    <p>Body mass index (BMI) is a measure of body fat. Combined with your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE), you can gain a complete picture of your daily caloric needs and overall health status.</p>
+                    <p>Body mass index (BMI) is a measure of body fat. Combined with your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE), you can gain a complete picture of your daily caloric needs, track your history, and set precise weight targets.</p>
                     
                     {history.length > 0 && (
                         <div className="history-section">
-                            <h3>Last Results</h3>
+                            <h3>Progress Chart</h3>
+                            <div className="chart-container" style={{ width: '100%', height: 180 }}>
+                                <ResponsiveContainer>
+                                    <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                                        <Line type="monotone" dataKey="bmi" stroke="#67e5fb" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" opacity={0.3} />
+                                        <XAxis dataKey="date" tick={{fontSize: 10, fill: theme === 'dark' ? '#cbd5e1' : '#6b7280'}} />
+                                        <YAxis domain={['auto', 'auto']} tick={{fontSize: 12, fill: theme === 'dark' ? '#cbd5e1' : '#6b7280'}} />
+                                        <RechartsTooltip 
+                                            contentStyle={{ backgroundColor: theme === 'dark' ? '#3f3f5a' : '#fff', borderRadius: '8px', border: 'none' }}
+                                            itemStyle={{ color: '#67e5fb', fontWeight: 'bold' }}
+                                        />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+
                             <ul className="history-list">
-                                {history.map((item, idx) => (
+                                {history.slice(0, 3).map((item, idx) => (
                                     <li key={idx}>
-                                        <span className="history-date">{item.date}</span>
+                                        <span className="history-date">{item.fullDate}</span>
                                         <span className="history-bmi">{item.bmi}</span>
                                         <span className={`history-cat ${item.category.toLowerCase()}`}>{item.category}</span>
                                     </li>
@@ -186,10 +251,16 @@ const Calculator = () => {
                             )}
                         </div>
 
-                        {/* Weight Row */}
-                        <div className="form-group">
-                            <label htmlFor="weight">Weight: </label>
-                            <input type="number" id="weight" placeholder="Weight (kg)" value={weight} onChange={(e) => setWeight(e.target.value)} required />
+                        {/* Weight & Target Row */}
+                        <div className="form-row">
+                            <div className="form-group half-width">
+                                <label htmlFor="weight">Current Weight: </label>
+                                <input type="number" id="weight" placeholder="Weight (kg)" value={weight} onChange={(e) => setWeight(e.target.value)} required />
+                            </div>
+                            <div className="form-group half-width">
+                                <label>Target Weight (Opt):</label>
+                                <input type="number" placeholder="Goal (kg)" value={targetWeight} onChange={(e) => setTargetWeight(e.target.value)} />
+                            </div>
                         </div>
 
                         {/* Activity Row */}
@@ -208,39 +279,60 @@ const Calculator = () => {
                     </form>
 
                     {bmi && (
-                        <div className="result">
-                            <h2>
-                                Your BMI: {bmi}
-                                <span className={`category ${category.toLowerCase()}`}>
-                                    ( {category} )
-                                </span>
-                            </h2>
-                            
-                            <div className="gauge-container">
-                                <div className="gauge-bar">
-                                    <div className={`gauge-segment underweight-bg ${category === 'Underweight' ? 'active-segment' : ''}`}></div>
-                                    <div className={`gauge-segment normal-bg ${category === 'Normal' ? 'active-segment' : ''}`}></div>
-                                    <div className={`gauge-segment overweight-bg ${category === 'Overweight' ? 'active-segment' : ''}`}></div>
-                                    <div className={`gauge-segment obesity-bg ${category === 'Obesity' ? 'active-segment' : ''}`}></div>
-                                </div>
-                            </div>
-                            
-                            {bmr && (
-                                <div className="metabolic-stats">
-                                    <div className="stat-box">
-                                        <span className="stat-label">BMR</span>
-                                        <span className="stat-value">{bmr} <small>kcal</small></span>
-                                    </div>
-                                    <div className="stat-box">
-                                        <span className="stat-label">TDEE</span>
-                                        <span className="stat-value">{tdee} <small>kcal</small></span>
+                        <div className="result-wrapper">
+                            <div className="result" id="calc-result-area" ref={resultRef}>
+                                <h2>
+                                    Your BMI: {bmi}
+                                    <span className={`category ${category.toLowerCase()}`}>
+                                        ( {category} )
+                                    </span>
+                                </h2>
+                                
+                                <div className="gauge-container">
+                                    <div className="gauge-bar">
+                                        <div className={`gauge-segment underweight-bg ${category === 'Underweight' ? 'active-segment' : ''}`}></div>
+                                        <div className={`gauge-segment normal-bg ${category === 'Normal' ? 'active-segment' : ''}`}></div>
+                                        <div className={`gauge-segment overweight-bg ${category === 'Overweight' ? 'active-segment' : ''}`}></div>
+                                        <div className={`gauge-segment obesity-bg ${category === 'Obesity' ? 'active-segment' : ''}`}></div>
                                     </div>
                                 </div>
-                            )}
+                                
+                                {bmr && (
+                                    <div className="metabolic-stats">
+                                        <div className="stat-box">
+                                            <span className="stat-label">BMR</span>
+                                            <span className="stat-value">{bmr} <small>kcal</small></span>
+                                        </div>
+                                        <div className="stat-box">
+                                            <span className="stat-label">TDEE</span>
+                                            <span className="stat-value">{tdee} <small>kcal</small></span>
+                                        </div>
+                                    </div>
+                                )}
 
-                            <div className="smart-tips">
-                                <strong>💡 Tip:</strong> {getSmartTips(category)}
+                                {goalDays && goalDays.days > 0 && (
+                                    <div className="goal-box">
+                                        <div className="goal-icon">🎯</div>
+                                        <div className="goal-text">
+                                            To <strong>{goalDays.type.toLowerCase()} {goalDays.diff} kg</strong>, it will take roughly <strong>{goalDays.days} days</strong> at a safe pace of 0.45kg/week (500 kcal daily {goalDays.type === 'Lose' ? 'deficit' : 'surplus'}).
+                                        </div>
+                                    </div>
+                                )}
+                                {goalDays && goalDays.days === 0 && (
+                                    <div className="goal-box success">
+                                        <div className="goal-icon">✅</div>
+                                        <div className="goal-text">
+                                            You are already at your target weight! Maintain your TDEE of {tdee} kcal to stay here.
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="smart-tips">
+                                    <strong>💡 Tip:</strong> {getSmartTips(category)}
+                                </div>
                             </div>
+
+                            <button className="download-btn" onClick={handleDownload}>📷 Download Report</button>
                         </div>
                     )}
 
